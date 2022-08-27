@@ -28,16 +28,21 @@ const getBaseUrl = () => {
 const url = `${getBaseUrl()}/api/trpc`;
 
 function getEndingLink() {
+	// getting the ending (logger link)
+	//  helps for debugging
 	if (typeof window === "undefined") {
 		return httpBatchLink({
 			url,
 		});
 	}
 
+	// else (return a new websocket client)
+	// web socket for chat app
 	const client = createWSClient({
 		url: process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:3011",
 	});
 
+	//passing client to websocket
 	return wsLink({
 		client,
 	});
