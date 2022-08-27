@@ -62,6 +62,7 @@ export default withTRPC<AppRouter>({
 			 * @link https://react-query.tanstack.com/reference/QueryClient
 			 */
 			// queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
+      
 			headers() {
 				if (ctx?.req) {
 					return { ...ctx.req.headers };
