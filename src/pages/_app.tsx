@@ -39,7 +39,7 @@ function getEndingLink() {
 	// else (return a new websocket client)
 	// web socket for chat app
 	const client = createWSClient({
-		url: process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:3011",
+		url: process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:3001",
 	});
 
 	//passing client to websocket
@@ -62,7 +62,7 @@ export default withTRPC<AppRouter>({
 			 * @link https://react-query.tanstack.com/reference/QueryClient
 			 */
 			// queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
-      
+
 			headers() {
 				if (ctx?.req) {
 					return { ...ctx.req.headers };
