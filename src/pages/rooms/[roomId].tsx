@@ -5,10 +5,14 @@ import { useState } from "react";
 import { Message } from "../../constants/schemas";
 import { trpc } from "../../utils/trpc";
 
-function MessageItem({message, session}: {message: Message, session: Session}) {
-  return <li>
-    {message.message}
-  </li>
+function MessageItem({
+	message,
+	session,
+}: {
+	message: Message;
+	session: Session;
+}) {
+	return <li>{message.message}</li>;
 }
 
 function RoomPage() {
@@ -48,17 +52,21 @@ function RoomPage() {
 	return (
 		<div>
 			<ul>
-        {messages.map((m) => {
-          return <MessageItem key={m.id} message={m} session={session}/>
-        })}
-      </ul>
+				{messages.map((m) => {
+					return <MessageItem key={m.id} message={m} session={session} />;
+				})}
+			</ul>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
 					sendMessageMutation({ roomId, message });
 				}}
 			>
-				<textarea placeholder="What do you want to say" />
+				<textarea
+					value={message}
+					onChange={(e) => setMessage(e.target.value)}
+					placeholder="What do you want to say"
+				t />
 				<button type="submit">Send Message</button>
 			</form>
 		</div>
