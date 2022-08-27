@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const sendMessageSchema = z.object({
-	roomID: z.string(),
+	roomId: z.string(),
 	message: z.string(),
 });
 
