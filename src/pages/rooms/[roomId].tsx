@@ -12,7 +12,27 @@ function MessageItem({
 	message: Message;
 	session: Session;
 }) {
-	return <li>{message.message}</li>;
+	const baseStyles =
+		"mb-4 text-md w-7/12 p-4 text-gray-700 border border-gray-700 rounded-md";
+
+	const liStyles =
+		message.sender.name === session.user?.name
+			? baseStyles
+			: baseStyles.concat(" self-end bg-gray-700 text-white");
+
+	return (
+		<li className={liStyles}>
+			<div className="flex">
+				{message.message}
+				<time>
+					{message.sentAt.toLocaleTimeString(`en-US`, {
+						timeStyle: "short",
+					})}
+					- {message.sender.name}
+				</time>
+			</div>
+		</li>
+	);
 }
 
 function RoomPage() {
@@ -50,24 +70,36 @@ function RoomPage() {
 
 	// return <div>welcome to room {roomId}</div>;
 	return (
-		<div>
-			<ul>
-				{messages.map((m) => {
-					return <MessageItem key={m.id} message={m} session={session} />;
-				})}
-			</ul>
+		<div className="flex flex-col h-screen">
+			<div className="flex-1">
+				<ul className="flex flex-col p-4">
+					{messages.map((m) => {
+						return (
+							<MessageItem key={m.id} message={m} session={session} />
+						);
+					})}
+				</ul>
+			</div>
 			<form
+				className="flex"
 				onSubmit={(e) => {
 					e.preventDefault();
 					sendMessageMutation({ roomId, message });
+					setMessage("");
 				}}
 			>
 				<textarea
+					className="black p-2.5 w-full text-gray-700 bg-gray-50 rounded-md border border-gray-700"
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
 					placeholder="What do you want to say"
-				t />
-				<button type="submit">Send Message</button>
+				/>
+				<button
+					className="flex-1 text-white bg-gray-900 p-2.5"
+					type="submit"
+				>
+					Send Message
+				</button>
 			</form>
 		</div>
 	);
